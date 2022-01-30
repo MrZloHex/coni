@@ -11,14 +11,19 @@ start_server(uint16_t port)
 {
 	printf("STARTING SERVER ON PORT %hu\n", port);
 
-	int sock_dscr = socket(AF_INET, SOCK_STREAM, 0);
+	int sock_dscr;
+	struct sockaddr_in server;
+	struct sockaddr_in client;
+	socklen_t namelen = sizeof(client);
+	int ns;
+
+	sock_dscr = socket(AF_INET, SOCK_STREAM, 0);
 	if (sock_dscr == -1)
 	{
 		fprintf(stderr, "ERROR: failed to create a socket\n");
 		exit(1);
 	}
 
-	struct sockaddr_in server;
 	server.sin_family      = AF_INET;
 	server.sin_port        = htons(port);
 	server.sin_addr.s_addr = INADDR_ANY;
@@ -38,10 +43,8 @@ start_server(uint16_t port)
 		exit(1);
 	}
 
-	struct sockaddr_in client;
-	socklen_t namelen = sizeof(client);
 
-	int ns = accept(sock_dscr, (struct sockaddr *)&client, &namelen);
+	ns = accept(sock_dscr, (struct sockaddr *)&client, &namelen);
 	if (ns == -1)
 	{
 		fprintf(stderr, "ERROR: failed to accept client req\n");
