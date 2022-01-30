@@ -25,7 +25,7 @@ main
 	}
 	else if (nt == CLIENT_NT)
 	{
-		char *ip;
+		char ip[16] = {0};
 		uint16_t port = get_ip_port(argc, argv, ip);
 		start_client(ip, port);
 	}

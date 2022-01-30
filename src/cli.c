@@ -92,6 +92,104 @@ get_ip_port
 	char *ip
 )
 {
-	return DEF_PORT;
+	if (argc < 3)
+	{
+		strcpy(ip, "127.0.0.1");
+		return DEF_PORT;
+	}
+
+	if (strcmp(argv[2], "-p") == 0)
+	{
+		if (argc < 4)
+		{
+			usage();
+			fprintf(stderr, "ERROR: port isn't provided\n");
+			exit(1);
+		}		
+		char *end;
+		errno = 0;
+		uintmax_t port = strtoumax(argv[3], &end, 10);
+		if (errno == ERANGE || port < 0 || port > UINT16_MAX || end == argv[3] || *end != '\0')
+		{
+			usage();
+			fprintf(stderr, "ERROR: failed to parse PORT: `%s`\n", argv[3]);
+			exit(1);
+		}
+		if (argc > 4)
+		{
+			if (strcmp(argv[4], "-i") == 0)
+			{
+				if (argc < 6)
+				{
+					usage();
+					fprintf(stderr, "ERROR: ip isn't provided\n");
+					exit(1);
+				}
+				if (strlen(argv[5]) > 15)
+				{
+					fprintf(stderr, "ERROR: provided ip is too long for IPV4\n");
+					exit(1);
+				}
+				strcpy(ip, argv[5]);
+				return (uint16_t)port;
+			}
+			else
+			{
+				usage();
+				fprintf(stderr, "ERROR: unexpected argument: `%s`\n", argv[4]);
+				exit(1);
+			}
+		}
+	}
+	else if (strcmp(argv[2], "-i") == 0)
+	{
+		if (argc < 4)
+		{
+			usage();
+			fprintf(stderr, "ERROR: ip isn't provided\n");
+			exit(1);
+		}		
+		if (strlen(argv[3]) > 15)
+		{
+			fprintf(stderr, "ERROR: provided IP is too long for IPV4\n");
+			exit(1);
+		}
+		strcpy(ip, argv[3]);
+		if (argc > 4)
+		{
+			if (strcmp(argv[4], "-p") == 0)
+			{
+				if (argc < 6)
+				{
+					usage();
+					fprintf(stderr, "ERROR: port isn't provided\n");
+					exit(1);
+				}
+				char *end;
+				errno = 0;
+				uintmax_t port = strtoumax(argv[5], &end, 10);
+				if (errno == ERANGE || port < 0 || port > UINT16_MAX || end == argv[3] || *end != '\0')
+				{
+					usage();
+					fprintf(stderr, "ERROR: failed to parse PORT: `%s`\n", argv[3]);
+					exit(1);
+				}
+				return (uint16_t)port;
+			}
+			else
+			{
+				usage();
+				fprintf(stderr, "ERROR: unexpected argument: `%s`\n", argv[4]);
+				exit(1);
+			}
+		}
+	}
+	else
+	{
+		usage();
+		fprintf(stderr, "ERROR: unexprected argument `%s`\n", argv[2]);
+		exit(1);
+	}
 }
+
 
