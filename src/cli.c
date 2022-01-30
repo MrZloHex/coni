@@ -13,7 +13,7 @@ usage()
 	printf("  As server:\n");
 	printf("\t$ coni -s [-p PORT]\n");
 	printf("  As client:\n");
-	printf("\t$ coni -s [-i IP]\n");
+	printf("\t$ coni -s [-p PORT] [-i IP]\n");
 }
 
 uint8_t
@@ -82,5 +82,16 @@ get_port
 		fprintf(stderr, "ERROR: unexpected argument: `%s`\n", argv[2]);
 		exit(1);
 	}
+}
+
+uint16_t
+get_ip_port
+(
+	const int argc,
+	const char **argv,
+	char *ip
+)
+{
+	return DEF_PORT;
 }
 

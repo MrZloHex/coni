@@ -26,5 +26,13 @@ get_port
 	const char **argv
 );
 
+uint16_t
+get_ip_port
+(
+	const int argc,
+	const char **argv,
+	char *ip
+);
+
 
 #endif /* CLI_H_ */

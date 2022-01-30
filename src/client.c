@@ -6,7 +6,11 @@
 #include "client.h"
 
 void
-start_client()
+start_client
+(
+ 	const char *ip,
+	uint16_t port
+)
 {
 	printf("STARTING CLIENT\n");
 
