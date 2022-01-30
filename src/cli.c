@@ -94,7 +94,7 @@ get_ip_port
 {
 	if (argc < 3)
 	{
-		strcpy(ip, "127.0.0.1");
+		strcpy(ip, DEF_IP);
 		return DEF_PORT;
 	}
 
@@ -140,6 +140,11 @@ get_ip_port
 				exit(1);
 			}
 		}
+		else
+		{
+			strcpy(ip, DEF_IP);
+			return port;
+		}
 	}
 	else if (strcmp(argv[2], "-i") == 0)
 	{
@@ -182,6 +187,10 @@ get_ip_port
 				fprintf(stderr, "ERROR: unexpected argument: `%s`\n", argv[4]);
 				exit(1);
 			}
+		}
+		else
+		{
+			return DEF_PORT;
 		}
 	}
 	else

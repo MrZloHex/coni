@@ -4,6 +4,7 @@
 #include <stdint.h>
 
 #define DEF_PORT 8080
+#define DEF_IP "127.0.0.1"
 
 void
 usage();

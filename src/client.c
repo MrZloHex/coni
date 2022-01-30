@@ -25,8 +25,8 @@ start_client
 	}
 
 	server.sin_family = AF_INET;
-	server.sin_addr.s_addr = inet_addr("127.0.0.1");
-	server.sin_port = htons(8080);
+	server.sin_addr.s_addr = inet_addr(ip);
+	server.sin_port = htons(port);
 
 	int res = connect(sock_dscr, (struct sockaddr *)&server, sizeof(server));
 	if (res != 0)
