@@ -89,6 +89,29 @@ start_tcp
     } 
 }
 
+
+void
+listen_tcp
+(
+    int fd,
+    char *buf,
+    size_t buflen
+)
+{
+    read(fd, buf, buflen);
+}
+
+void
+send_tcp
+(
+    int fd,
+    char *buf,
+    size_t buflen
+)
+{
+    write(fd, buf, buflen);
+}
+
 void
 stop_tcp(int server_fd)
 {

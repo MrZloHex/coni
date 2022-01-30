@@ -46,11 +46,14 @@ main
 			else if (cmd.type == SEND)
 			{
 				printf("Sending messsage `%s`\n", cmd.data);
+				send_tcp(me, cmd.data, strlen(cmd.data));
 			}
 			else if (cmd.type == LISTEN)
 			{
 				printf("Listening...\n");
-				// listen_tcp(me);
+				char buf[200] = {0};
+				listen_tcp(me, buf, 200);
+				printf("GOT A MSG: `%s`\n", buf);
 			}
 		}
 
