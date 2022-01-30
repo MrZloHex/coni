@@ -25,7 +25,13 @@ main
 		start_server(port);
 		while (M_PI)
 		{
-			cmd_T *cmd = get_cmd();
+			cmd_T cmd = get_cmd();
+			if (cmd.type == EXIT)
+			{
+				printf("SERVER OFF\n");
+				//stop_server();
+				exit(0);
+			}
 		}
 	}
 	else if (nt == CLIENT_NT)

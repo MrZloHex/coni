@@ -38,7 +38,7 @@ split_by_ws
 }
 
 
-cmd_T *
+cmd_T
 get_cmd()
 {
 	printf("> ");
@@ -49,7 +49,31 @@ get_cmd()
 
 	size_t splits;
 	char **tokens = split_by_ws(buf, &splits);
-	for (size_t i = 0; i < splits; ++i)
-		printf("TOK: %s\n", tokens[i]);
+	
+	if (strcmp(tokens[0], "EXIT") == 0 || strcmp(tokens[0], "exit") == 0)
+	{
+		cmd_T cmd = {
+			.type = EXIT,
+			.data = 0
+		};
+		return cmd;
+	}
+	else if (strcmp(tokens[0], "SEND") == 0 || strcmp(tokens[0], "send") == 0)
+	{
+		cmd_T cmd = {
+			.type = SEND,
+			.data = tokens[1]
+		};
+		return cmd;
+	}
+	else
+	{
+		fprintf(stderr, "ERROR: incorrect command `%s`\n", tokens[0]);
+		cmd_T cmd = {
+			.type = INVALID,
+			.data = 0
+		};
+		return cmd;
+	}
 }
 

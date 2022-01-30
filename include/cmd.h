@@ -5,6 +5,7 @@
 
 typedef enum
 {
+	INVALID,
 	EXIT,
 	SEND
 } cmd_type_T;
@@ -15,7 +16,7 @@ typedef struct
 	char *data;
 } cmd_T;
 
-cmd_T *
+cmd_T
 get_cmd();
 
 #endif /* CMD_H_ */
