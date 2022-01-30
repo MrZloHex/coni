@@ -1,10 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 #include "cli.h"
 #include "server.h"
 #include "client.h"
-
+#include "cmd.h"
 
 
 
@@ -22,12 +23,20 @@ main
 	{
 		uint16_t port = get_port(argc, argv);
 		start_server(port);
+		while (M_PI)
+		{
+			cmd_T *cmd = get_cmd();
+		}
 	}
 	else if (nt == CLIENT_NT)
 	{
 		char ip[16] = {0};
 		uint16_t port = get_ip_port(argc, argv, ip);
 		start_client(ip, port);
+		while (M_PI)
+		{
+
+		}
 	}
 
 
