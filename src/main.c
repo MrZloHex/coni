@@ -3,8 +3,7 @@
 #include <math.h>
 
 #include "cli.h"
-#include "server.h"
-#include "client.h"
+#include "tcp.h"
 #include "cmd.h"
 
 
@@ -19,45 +18,41 @@ main
 
 	uint8_t nt = get_node_type(argc, argv);
 
+	int me;
+
+
 	if (nt == SERVER_NT)
 	{
 		uint16_t port = get_port(argc, argv);
-		start_server(port);
-		while (M_PI)
-		{
-			cmd_T cmd = get_cmd();
-			if (cmd.type == EXIT)
-			{
-				printf("SERVER OFF\n");
-				//stop_server();
-				exit(0);
-			}
-			else if (cmd.type == SEND)
-			{
-				printf("Sending messsage `%s`\n", cmd.data);
-			}
-		}
+		me = start_tcp(SERVER, NULL, port);
 	}
 	else if (nt == CLIENT_NT)
 	{
 		char ip[16] = {0};
 		uint16_t port = get_ip_port(argc, argv, ip);
-		start_client(ip, port);
-		while (M_PI)
+		me = start_tcp(CLIENT, ip, port);
+	}
+
+
+	while (M_PI)
 		{
 			cmd_T cmd = get_cmd();
 			if (cmd.type == EXIT)
 			{
 				printf("SERVER OFF\n");
-				//stop_server();
+				stop_tcp(me);
 				exit(0);
 			}
 			else if (cmd.type == SEND)
 			{
 				printf("Sending messsage `%s`\n", cmd.data);
 			}
+			else if (cmd.type == LISTEN)
+			{
+				printf("Listening...\n");
+				// listen_tcp(me);
+			}
 		}
-	}
 
 
 	return 0;

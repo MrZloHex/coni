@@ -66,6 +66,14 @@ get_cmd()
 		};
 		return cmd;
 	}
+	else if (strcmp(tokens[0], "LISTEN") == 0 || strcmp(tokens[0], "listen") == 0)
+	{
+		cmd_T cmd = {
+			.type = LISTEN,
+			.data = 0
+		};
+		return cmd;
+	}
 	else
 	{
 		fprintf(stderr, "ERROR: incorrect command `%s`\n", tokens[0]);

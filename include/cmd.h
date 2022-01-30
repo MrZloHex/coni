@@ -7,7 +7,8 @@ typedef enum
 {
 	INVALID,
 	EXIT,
-	SEND
+	SEND,
+	LISTEN
 } cmd_type_T;
 
 typedef struct
