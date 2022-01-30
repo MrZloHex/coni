@@ -32,6 +32,10 @@ main
 				//stop_server();
 				exit(0);
 			}
+			else if (cmd.type == SEND)
+			{
+				printf("Sending messsage `%s`\n", cmd.data);
+			}
 		}
 	}
 	else if (nt == CLIENT_NT)
@@ -41,7 +45,17 @@ main
 		start_client(ip, port);
 		while (M_PI)
 		{
-
+			cmd_T cmd = get_cmd();
+			if (cmd.type == EXIT)
+			{
+				printf("SERVER OFF\n");
+				//stop_server();
+				exit(0);
+			}
+			else if (cmd.type == SEND)
+			{
+				printf("Sending messsage `%s`\n", cmd.data);
+			}
 		}
 	}
 
