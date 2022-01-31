@@ -1,5 +1,5 @@
 CC = gcc
-C_FLAGS = -Wall -pedantic -Iinclude -O3
+C_FLAGS = -Wall -lpthread -pedantic -Iinclude -O3
 
 SRC_DIR = src
 

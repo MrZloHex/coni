@@ -54,6 +54,7 @@ get_cmd()
 	{
 		cmd_T cmd = {
 			.type = EXIT,
+			.sub_type = NONE,
 			.data = 0
 		};
 		return cmd;
@@ -62,6 +63,7 @@ get_cmd()
 	{
 		cmd_T cmd = {
 			.type = SEND,
+			.sub_type = NONE,
 			.data = tokens[1]
 		};
 		return cmd;
@@ -70,15 +72,48 @@ get_cmd()
 	{
 		cmd_T cmd = {
 			.type = LISTEN,
+			.sub_type = NONE,
 			.data = 0
 		};
 		return cmd;
+	}
+	else if (strcmp(tokens[0], "MODE") == 0 || strcmp(tokens[0], "mode") == 0)
+	{
+		if (strcmp(tokens[1], "CHAT") == 0 || strcmp(tokens[1], "chat") == 0)
+		{
+			cmd_T cmd = {
+				.type = MODE,
+				.sub_type = CHAT,
+				.data = 0
+			};
+			return cmd;
+		}
+		else if (strcmp(tokens[1], "CMD") == 0 || strcmp(tokens[1], "cmd") == 0)
+		{
+			cmd_T cmd = {
+				.type = MODE,
+				.sub_type = CMD,
+				.data = 0
+			};
+			return cmd;
+		}
+		else
+		{
+			fprintf(stderr, "ERROR: incorrect subcommand for MODE is possible [CHAT|CMD] tou provided: `%s`\n", tokens[1]);
+			cmd_T cmd = {
+				.type = INVALID,
+				.sub_type = NONE,
+				.data = 0
+			};
+			return cmd;
+		}
 	}
 	else
 	{
 		fprintf(stderr, "ERROR: incorrect command `%s`\n", tokens[0]);
 		cmd_T cmd = {
 			.type = INVALID,
+			.sub_type = NONE,
 			.data = 0
 		};
 		return cmd;

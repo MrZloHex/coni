@@ -8,12 +8,21 @@ typedef enum
 	INVALID,
 	EXIT,
 	SEND,
-	LISTEN
+	LISTEN,
+	MODE
 } cmd_type_T;
+
+typedef enum
+{
+	NONE,
+	CHAT,
+	CMD
+} cmd_sub_type_T;
 
 typedef struct
 {
 	cmd_type_T type;
+	cmd_sub_type_T sub_type;
 	char *data;
 } cmd_T;
 
